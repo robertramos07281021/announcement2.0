@@ -6,7 +6,7 @@ import { closeWsClient, getWsClient } from "./wsClient.ts";
 const hostname = window.location.hostname;
 
 const httpLink = new HttpLink({
-  uri: `https://${hostname}:5000/graphql`,
+  uri: `https://${hostname}/graphql`,
   credentials: 'include',
 });
 
@@ -41,5 +41,6 @@ window.addEventListener('beforeunload', () => {
 });
 
 export default client;
+
 
 
