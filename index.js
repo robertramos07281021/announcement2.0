@@ -78,12 +78,15 @@ app.use(
   }),
 );
 
+// Serve uploaded files first
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.use(express.static(path.join(__dirname, "/client/dist")));
+// Serve React build
+app.use(express.static(path.join(__dirname, "client/dist")));
 
+// SPA fallback: only after static assets
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "client/dist/index.html"));
 });
 
 app.use(express.json({ limit: "50mb" }));
@@ -440,3 +443,4 @@ const startServer = async () => {
 };
 
 startServer();
+
