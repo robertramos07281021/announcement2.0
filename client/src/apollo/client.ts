@@ -3,9 +3,10 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { closeWsClient, getWsClient } from "./wsClient.ts";
 
+const hostname = window.location.hostname;
+
 const httpLink = new HttpLink({
-  // uri:'http://172.16.24.31:4000/graphql', // prod
-  uri:'/graphql', // dev
+  uri: `https://${hostname}:5000/graphql`,
   credentials: 'include',
 });
 
@@ -40,4 +41,5 @@ window.addEventListener('beforeunload', () => {
 });
 
 export default client;
+
 
