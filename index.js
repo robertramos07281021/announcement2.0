@@ -61,6 +61,7 @@ const allowedOrigins = [
   `http://${process.env.MY_IP}:8000`,
   `http://localhost:5000`,
   `http://localhost:8000`,
+  'https://announcement2-0.onrender.com',
 ];
 
 app.use(
@@ -443,4 +444,5 @@ const startServer = async () => {
 };
 
 startServer();
+
 
