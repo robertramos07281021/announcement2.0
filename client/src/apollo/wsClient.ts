@@ -1,0 +1,30 @@
+import { createClient } from 'graphql-ws';
+import { store } from '../redux/store';
+
+let wsClient: ReturnType<typeof createClient> | null = null;
+
+export function getWsClient() {
+  if (!wsClient) {
+    const hostname = window.location.hostname;
+    wsClient = createClient({
+      url: `ws://${hostname}:8000/graphql`,
+      connectionParams: () => {
+        const token = store.getState().auth.userLogged?.token;
+       
+        return {
+          authorization: token ? `Bearer ${token}` : '',
+        };
+      },
+      lazy: true,
+      retryAttempts: 3,
+    });
+  }
+  return wsClient;
+}
+
+export function closeWsClient() {
+  if (wsClient) {
+    wsClient.dispose();
+    wsClient = null;
+  }
+}
