@@ -9,8 +9,6 @@ export default defineConfig({
     dedupe: ["react", "react-dom"], // <--- important
   },
   server: {
-    port: 8000,
-    host: true,
     proxy: {
       "/graphql": {
         target: "http://localhost:5000",
@@ -25,6 +23,9 @@ export default defineConfig({
         target: "http://localhost:5000",
         changeOrigin: true,
       },
+    },
+    hmr: {
+      protocol: "wss",
     },
   },
 });
