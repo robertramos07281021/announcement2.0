@@ -403,7 +403,7 @@ const startServer = async () => {
 
 
 
-    httpServer.listen(process.env.PORT, async () => {
+    httpServer.listen(process.env.PORT || 5000, async () => {
       console.log(
         `🚀 Server running at http://localhost:${process.env.PORT}/graphql`,
       );
@@ -445,6 +445,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
