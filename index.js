@@ -390,20 +390,25 @@ const startServer = async () => {
           return { user, res, req, pubsub, PUBSUB_EVENTS };
         },
       }),
-    );
-  
+    );  
+  } catch (error) {
+    console.error("❌ Server startup error:", error.message);
+  }
+};
+
+startServer();
+
+ 
      // 2️⃣ Static uploads & React build
-    app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-    app.use(express.static(path.join(__dirname, "client/dist")));
-  
-    // 3️⃣ SPA fallback
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "client/dist/index.html"));
-    });
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(express.static(path.join(__dirname, "client/dist")));
 
+// 3️⃣ SPA fallback
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist/index.html"));
+});
 
-
-    httpServer.listen(process.env.PORT || 5000, async () => {
+httpServer.listen(process.env.PORT || 5000, async () => {
       console.log(
         `🚀 Server running at http://localhost:${process.env.PORT}/graphql`,
       );
@@ -439,12 +444,7 @@ const startServer = async () => {
 
       await createAdmin.save();
     });
-  } catch (error) {
-    console.error("❌ Server startup error:", error.message);
-  }
-};
 
-startServer();
 
 
 
