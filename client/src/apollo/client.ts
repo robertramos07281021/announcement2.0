@@ -3,7 +3,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { closeWsClient, getWsClient } from "./wsClient.ts";
 
-const hostname = window.location.hostname;
+const hostname = "https://announcement2-0.onrender.com";
 
 const httpLink = new HttpLink({
   uri: `https://${hostname}/graphql`,
