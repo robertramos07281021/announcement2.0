@@ -362,6 +362,7 @@ httpServer.on("connection", (socket) => {
 const startServer = async () => {
   const server = new ApolloServer({
     schema,
+    introspection: true
   });
 
   try {
@@ -390,17 +391,17 @@ const startServer = async () => {
         },
       }),
     );
+  
+     // 2️⃣ Static uploads & React build
+    app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+    app.use(express.static(path.join(__dirname, "client/dist")));
+  
+    // 3️⃣ SPA fallback
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "client/dist/index.html"));
+    });
 
-    // Serve uploaded files first
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Serve React build
-app.use(express.static(path.join(__dirname, "client/dist")));
-
-    // SPA fallback: only after static assets
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist/index.html"));
-});
 
     httpServer.listen(process.env.PORT, async () => {
       console.log(
@@ -444,6 +445,7 @@ app.get("*", (req, res) => {
 };
 
 startServer();
+
 
 
 
