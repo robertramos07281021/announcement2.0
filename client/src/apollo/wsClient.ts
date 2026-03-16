@@ -5,7 +5,7 @@ let wsClient: ReturnType<typeof createClient> | null = null;
 
 export function getWsClient() {
   if (!wsClient) {
-    const hostname = window.location.hostname;
+    const hostname = "announcement2-0.onrender.com";
     wsClient = createClient({
       url: `wss://${hostname}/graphql`,
       connectionParams: () => {
