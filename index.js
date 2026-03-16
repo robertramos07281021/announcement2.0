@@ -79,17 +79,6 @@ app.use(
   }),
 );
 
-// Serve uploaded files first
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// Serve React build
-app.use(express.static(path.join(__dirname, "client/dist")));
-
-// SPA fallback: only after static assets
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist/index.html"));
-});
-
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
@@ -402,6 +391,17 @@ const startServer = async () => {
       }),
     );
 
+    // Serve uploaded files first
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Serve React build
+app.use(express.static(path.join(__dirname, "client/dist")));
+
+    // SPA fallback: only after static assets
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist/index.html"));
+});
+
     httpServer.listen(process.env.PORT, async () => {
       console.log(
         `🚀 Server running at http://localhost:${process.env.PORT}/graphql`,
@@ -444,5 +444,6 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
